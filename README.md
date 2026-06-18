@@ -36,7 +36,7 @@ source venv/bin/activate        # Linux / macOS
 venv\Scripts\activate.bat       # Windows
 ```
 
-La herramienta incluye un fichero `pyproject.toml` [...]
+La herramienta incluye un documento `pyproject.toml`, un fichero de configuración del empaquetado. Contiene metadatos del proyecto, sus dependencias y la configuración de ciertas herramientas.
 
 ```
 pip install -e .
@@ -56,7 +56,9 @@ Se pueden comprobar los requisitos específicos de estas bibliotecas en los sigu
 
 ## Estructura
 
-Intro
+Los datos de entrada que se deben proporcionar a la herramienta son: la ontología, el escenario de la misión, los eventos registrados y el catálogo de contramedidas disponible.
+
+La estructura en que se deberán aportar estos archivos es la siguiente:
 
 ```
 data
@@ -75,15 +77,15 @@ src
 
 ### /data
 
-Bloque para explicar cómo se estructura el proyecto contenido en este repositorio.
+Carpeta en la que se incorporan los datos de entrada. Para cada escenario se deberá crear un directorio, en el que se definirá: el escenario de la misión, `mission.json`; los eventos registrados, `events.json`; y el catálogo de mitigaciones, `/countermeasures/catalog.json`.
 
 ### /output
 
-Directorio que contiene los informes de evaluación generados por la DST organizados por carpetas.
+Directorio que contiene los informes de evaluación generados por la DST, organizados por carpetas.
 
 ### /src
 
-Bloque para explicar cómo se estructura el proyecto contenido en este repositorio.
+Código de la herramienta, organizado en ocho módulos orquestados mediante el *script main.py*: carga de la ontología (*ontology*), carga del escenario (*scenario*), generación del grafo (*graph*), evaluación del escenario (*evaluator*), carga del catálogo de contramedidas (*catalog*), recomendación de contramedidas (*recommendator*), generación del informe de evaluación de la misión (*report*) y definición de los modelos de datos empleados en la DST (*models*).
 
 ## Ejecución
 
