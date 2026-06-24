@@ -1,0 +1,261 @@
+{
+  "mission": [
+    {
+      "id": "Mission_NEO",
+      "name": "Operación NEO",
+      "weight": 1.0,
+      "criticality": 0.9,
+      "start_date": "2026-05-01T00:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z",
+      "phase": "Execution"
+    }
+  ],
+  "loo": [
+    {
+      "id": "LoO_Coordinacion",
+      "parent_id": "Mission_NEO",
+      "name": "Coordinación de la evacuación",
+      "weight": 0.5,
+      "criticality": 0.9,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "LoO_Ejecucion",
+      "parent_id": "Mission_NEO",
+      "name": "Ejecución de la evacuación",
+      "weight": 0.5,
+      "criticality": 0.9,
+      "domain": "Air"
+    }
+  ],
+  "obj": [
+    {
+      "id": "Obj_Control",
+      "parent_id": "LoO_Coordinacion",
+      "name": "Control de la evacuación",
+      "weight": 1.0,
+      "criticality": 0.3
+    },
+    {
+      "id": "Obj_Evacuacion",
+      "parent_id": "LoO_Ejecucion",
+      "name": "Evacuación del personal",
+      "weight": 1.0,
+      "criticality": 0.3
+    }
+  ],
+  "dc": [
+    {
+      "id": "DC_IdentidadVerificada",
+      "parent_id": "Obj_Control",
+      "name": "Identidad de los evacuados verificada",
+      "weight": 1.0,
+      "criticality": 0.3
+    },
+    {
+      "id": "DC_PersonalExtraido",
+      "parent_id": "Obj_Evacuacion",
+      "name": "Personal extraído de la zona",
+      "weight": 1.0,
+      "criticality": 0.3
+    }
+  ],
+  "effect": [
+    {
+      "id": "Eff_EvacuadosAsignados",
+      "parent_id": "DC_IdentidadVerificada",
+      "name": "Evacuados identificados y asignados",
+      "weight": 1.0,
+      "criticality": 0.4
+    },
+    {
+      "id": "Eff_EvacuadosExtraidos",
+      "parent_id": "DC_PersonalExtraido",
+      "name": "Evacuados asegurados y extraídos",
+      "weight": 1.0,
+      "criticality": 0.4
+    }
+  ],
+  "action": [
+    {
+      "id": "Action_Coordinar",
+      "parent_id": "Eff_EvacuadosAsignados",
+      "name": "Operar la gestión de la evacuación",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "start_date": "2026-05-01T06:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "Action_Ejecutar",
+      "parent_id": "Eff_EvacuadosExtraidos",
+      "name": "Ejecutar la evacuación",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "start_date": "2026-05-01T06:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    }
+  ],
+  "task": [
+    {
+      "id": "Task_RegistroIdentidad",
+      "parent_id": "Action_Coordinar",
+      "name": "Operar el registro de evacuados",
+      "weight": 0.4,
+      "criticality": 0.4,
+      "phase": "Execution",
+      "depends_on": [],
+      "start_date": "2026-05-01T08:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "Task_GestionEvacuacion",
+      "parent_id": "Action_Coordinar",
+      "name": "Operar el sistema de gestión",
+      "weight": 0.6,
+      "criticality": 0.5,
+      "phase": "Execution",
+      "depends_on": [
+        "Task_RegistroIdentidad"
+      ],
+      "critical": "True",
+      "start_date": "2026-05-01T08:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "Task_SeguridadECC",
+      "parent_id": "Action_Ejecutar",
+      "name": "Asegurar el ECC",
+      "weight": 0.5,
+      "criticality": 0.4,
+      "phase": "Execution",
+      "depends_on": [
+        "Task_GestionEvacuacion"
+      ],
+      "start_date": "2026-05-01T08:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "Task_ExtraccionAerea",
+      "parent_id": "Action_Ejecutar",
+      "name": "Ejecutar la extracción aérea",
+      "weight": 0.5,
+      "criticality": 0.5,
+      "phase": "Execution",
+      "depends_on": [
+        "Task_GestionEvacuacion"
+      ],
+      "critical": "True",
+      "start_date": "2026-05-01T08:00:00Z",
+      "end_date": "2026-07-28T00:00:00Z"
+    }
+  ],
+  "unit": [
+    {
+      "id": "Unit_RGE31",
+      "parent_id": "Task_RegistroIdentidad",
+      "name": "Reg. de Guerra Electrónica 31",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Unit_MOPS",
+      "parent_id": "Task_GestionEvacuacion",
+      "name": "Mando de Operaciones",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "domain": "Land"
+    },
+    {
+      "id": "Unit_GOE3",
+      "parent_id": "Task_SeguridadECC",
+      "name": "GOE Valencia III",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "domain": "Land"
+    },
+    {
+      "id": "Unit_BHM4",
+      "parent_id": "Task_ExtraccionAerea",
+      "name": "Batallón de Helicópteros de Maniobra IV",
+      "weight": 0.5,
+      "criticality": 0.4,
+      "domain": "Air"
+    },
+    {
+      "id": "Unit_Ala45",
+      "parent_id": "Task_ExtraccionAerea",
+      "name": "Ala 45",
+      "weight": 0.5,
+      "criticality": 0.4,
+      "domain": "Air"
+    }
+  ],
+  "asset": [
+    {
+      "id": "Asset_RegistroEvac",
+      "parent_id": "Unit_RGE31",
+      "name": "Registro de evacuados",
+      "weight": 1.0,
+      "criticality": 0.7,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_SistemaGestionEvac",
+      "parent_id": "Unit_MOPS",
+      "name": "Sistema de gestión de la evacuación",
+      "weight": 0.6,
+      "criticality": 0.7,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_SistemaSeguimiento",
+      "parent_id": "Unit_MOPS",
+      "name": "Sistema de seguimiento",
+      "weight": 0.2,
+      "criticality": 0.6,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_ECC",
+      "parent_id": "Unit_MOPS",
+      "name": "ECC",
+      "weight": 0.2,
+      "criticality": 0.5,
+      "domain": "Land"
+    },
+    {
+      "id": "Asset_VAMTAC",
+      "parent_id": "Unit_GOE3",
+      "name": "VAMTAC",
+      "weight": 0.2,
+      "criticality": 0.5,
+      "domain": "Land"
+    },
+    {
+      "id": "Asset_EO",
+      "parent_id": "Unit_GOE3",
+      "name": "Equipo operativo",
+      "weight": 0.3,
+      "criticality": 0.5,
+      "domain": "Land"
+    },
+    {
+      "id": "Asset_HT27",
+      "parent_id": "Unit_BHM4",
+      "name": "HT-27 Cougar",
+      "weight": 0.5,
+      "criticality": 0.6,
+      "domain": "Air"
+    },
+    {
+      "id": "Asset_C295",
+      "parent_id": "Unit_Ala45",
+      "name": "C-295",
+      "weight": 1.0,
+      "criticality": 0.6,
+      "domain": "Air"
+    }
+  ]
+}

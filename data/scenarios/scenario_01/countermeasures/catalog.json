@@ -1,0 +1,985 @@
+[
+  {
+    "id": "CM_001",
+    "name": "Cifrado",
+    "description": "Cifrado de la información almacenada.",
+    "cost": 0.3,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.9
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1040",
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_002",
+    "name": "Seudonimización",
+    "description": "Reducción y disociación de los datos sensibles.",
+    "cost": 0.25,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.85
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1213",
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_003",
+    "name": "Control de acceso por mínimo privilegio y MFA",
+    "description": "Restricción de accesos y autenticación multifactor.",
+    "cost": 0.25,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "confidentiality": 0.85
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1078",
+      "T1190"
+    ]
+  },
+  {
+    "id": "CM_004",
+    "name": "Prevención de fuga de datos (DLP)",
+    "description": "Inspección y bloqueo de transferencias no autorizadas de los datos.",
+    "cost": 0.3,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.2
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1213",
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_005",
+    "name": "Detección de exfiltración y de accesos anómalos",
+    "description": "Identificación de accesos no autorizados y de transferencias anómalas hacia el exterior.",
+    "cost": 0.25,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "confidentiality": 0.1
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1213",
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_006",
+    "name": "Vigilancia con IDS/IPS y filtrado de egreso",
+    "description": "Detección de intrusiones y restricción del tráfico saliente.",
+    "cost": 0.3,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.4
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1041",
+      "T1190"
+    ]
+  },
+  {
+    "id": "CM_007",
+    "name": "Revocación de credenciales y rotación de claves",
+    "description": "Cierre de accesos y renovación del material criptográfico al cese.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "confidentiality": 0.85
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1078",
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_008",
+    "name": "Reestructuración de la operación",
+    "description": "Generar una nueva planificación de la misión ante fugas de datos.",
+    "cost": 1.0,
+    "deployment_time": 4.5,
+    "cia_mitigation": {
+      "confidentiality": 0.95
+    },
+    "applicable_to": [
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment",
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1041"
+    ]
+  },
+  {
+    "id": "CM_009",
+    "name": "Comunicaciones cifradas y resistentes",
+    "description": "Cifrado de las comunicaciones frente a interceptación e intermediación.",
+    "cost": 0.25,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.85,
+      "integrity": 0.75
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1040",
+      "T1557"
+    ]
+  },
+  {
+    "id": "CM_010",
+    "name": "Endurecimiento y control de accesos de los sistemas",
+    "description": "Bastionado y control de identidades de los sistemas.",
+    "cost": 0.25,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "confidentiality": 0.75,
+      "integrity": 0.75
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1190",
+      "T1078"
+    ]
+  },
+  {
+    "id": "CM_011",
+    "name": "Control de emisiones (EMCON)",
+    "description": "Reducción de la firma electromagnética para dificultar detección e interceptación.",
+    "cost": 0.15,
+    "deployment_time": 0.25,
+    "cia_mitigation": {
+      "confidentiality": 0.7,
+      "availability": 0.55
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1040",
+      "T1498"
+    ]
+  },
+  {
+    "id": "CM_012",
+    "name": "Vigilancia y detección de intrusiones",
+    "description": "Detección de intrusiones y de manipulaciones en los sistemas.",
+    "cost": 0.25,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "integrity": 0.8,
+      "confidentiality": 0.25
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1190",
+      "T1565"
+    ]
+  },
+  {
+    "id": "CM_014",
+    "name": "Verificación de integridad de los registros",
+    "description": "Comprobación de integridad de los registros.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "integrity": 0.85
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1190"
+    ]
+  },
+  {
+    "id": "CM_015",
+    "name": "Antena GNSS anti-jamming (CRPA)",
+    "description": "Antena de patrón controlado que anula las direcciones de interferencia.",
+    "cost": 0.4,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "availability": 0.75
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1499",
+      "T1498"
+    ]
+  },
+  {
+    "id": "CM_017",
+    "name": "Navegación inercial (INS) de respaldo",
+    "description": "Continuidad de navegación ante pérdida o suplantación de GNSS.",
+    "cost": 0.1,
+    "deployment_time": 0.1,
+    "cia_mitigation": {
+      "integrity": 0.7,
+      "availability": 0.65
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1499",
+      "T1565"
+    ]
+  },
+  {
+    "id": "CM_018",
+    "name": "Receptor GNSS M-code y monitor de integridad",
+    "description": "Recepción cifrada y vigilancia de la integridad de la señal de navegación.",
+    "cost": 0.5,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "integrity": 0.85,
+      "availability": 0.8
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_019",
+    "name": "Repliegue a base",
+    "description": "Repliegue de la aeronave a base.",
+    "cost": 1.0,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "integrity": 0.6,
+      "availability": 0.2
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Deployment",
+      "Execution",
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1499",
+      "T1565"
+    ]
+  },
+  {
+    "id": "CM_013",
+    "name": "Enlaces redundantes y conmutación automática",
+    "description": "Conmutación automática a enlaces redundantes ante la pérdida de disponibilidad.",
+    "cost": 0.35,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "availability": 0.7
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_016",
+    "name": "Enlace de datos táctico cifrado",
+    "description": "Cifrado del enlace de datos táctico frente a interceptación e intermediación.",
+    "cost": 0.3,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.8,
+      "integrity": 0.6
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1040",
+      "T1557"
+    ]
+  },
+  {
+    "id": "CM_020",
+    "name": "Copias de seguridad cifradas y aisladas",
+    "description": "Copias de seguridad cifradas y aisladas para la recuperación de la información.",
+    "cost": 0.3,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "availability": 0.85,
+      "integrity": 0.6
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1485",
+      "T1486"
+    ]
+  },
+  {
+    "id": "CM_021",
+    "name": "Segmentación y microsegmentación de la red",
+    "description": "Segmentación y microsegmentación de la red para contener el movimiento lateral.",
+    "cost": 0.35,
+    "deployment_time": 2.0,
+    "cia_mitigation": {
+      "confidentiality": 0.6,
+      "integrity": 0.5
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1210",
+      "T1570"
+    ]
+  },
+  {
+    "id": "CM_022",
+    "name": "Gestión de parches y vulnerabilidades",
+    "description": "Gestión de parches y de vulnerabilidades de los sistemas.",
+    "cost": 0.25,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "confidentiality": 0.6,
+      "integrity": 0.6,
+      "availability": 0.4
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1190",
+      "T1210"
+    ]
+  },
+  {
+    "id": "CM_023",
+    "name": "Concienciación y adiestramiento frente a ingeniería social",
+    "description": "Concienciación y adiestramiento del personal frente a la ingeniería social.",
+    "cost": 0.15,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.5
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1566",
+      "T1078"
+    ]
+  },
+  {
+    "id": "CM_024",
+    "name": "Bastionado y eliminación de credenciales embebidas",
+    "description": "Eliminación de credenciales embebidas y bastionado de la configuración.",
+    "cost": 0.2,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.6
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1552",
+      "T1078"
+    ]
+  },
+  {
+    "id": "CM_025",
+    "name": "Sellado e integridad de los registros",
+    "description": "Sellado e integridad de los registros mediante funciones resumen.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "integrity": 0.85
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1070"
+    ]
+  },
+  {
+    "id": "CM_026",
+    "name": "Autenticación reforzada basada en certificados",
+    "description": "Autenticación reforzada basada en certificados.",
+    "cost": 0.3,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "confidentiality": 0.7,
+      "integrity": 0.6
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1649",
+      "T1556"
+    ]
+  },
+  {
+    "id": "CM_027",
+    "name": "Detección y respuesta en endpoints (EDR)",
+    "description": "Detección y respuesta en los endpoints frente a código malicioso.",
+    "cost": 0.35,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.4,
+      "integrity": 0.5,
+      "availability": 0.4
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1059",
+      "T1105"
+    ]
+  },
+  {
+    "id": "CM_029",
+    "name": "Bloqueo de exfiltración por canales alternativos",
+    "description": "Bloqueo de la exfiltración por servicios web y protocolos alternativos.",
+    "cost": 0.3,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.45
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1567",
+      "T1048"
+    ]
+  },
+  {
+    "id": "CM_030",
+    "name": "Limitación de tasa y protección anti-DoS",
+    "description": "Limitación de tasa y protección frente a la denegación de servicio.",
+    "cost": 0.3,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "availability": 0.7
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_033",
+    "name": "Borrado seguro de soportes",
+    "description": "Borrado seguro y saneamiento de los soportes de información.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "confidentiality": 0.9
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1052",
+      "T1530"
+    ]
+  },
+  {
+    "id": "CM_034",
+    "name": "Análisis forense y revisión post-incidente",
+    "description": "Análisis forense y revisión posterior al incidente.",
+    "cost": 0.25,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "integrity": 0.5,
+      "confidentiality": 0.3
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1070",
+      "T1565"
+    ]
+  },
+  {
+    "id": "CM_035",
+    "name": "Archivado cifrado y custodia de evidencias",
+    "description": "Archivado cifrado y custodia de las evidencias.",
+    "cost": 0.2,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "confidentiality": 0.85,
+      "integrity": 0.7
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1485",
+      "T1486"
+    ]
+  },
+  {
+    "id": "CM_036",
+    "name": "Cierre de cuentas temporales y accesos",
+    "description": "Revisión y cierre de las cuentas temporales y de los accesos.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "confidentiality": 0.7
+    },
+    "applicable_to": [
+      "Asset_RegistroEvac",
+      "Asset_SistemaGestionEvac",
+      "Asset_SistemaSeguimiento"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1078",
+      "T1136",
+      "T1098"
+    ]
+  },
+  {
+    "id": "CM_037",
+    "name": "PKI táctica y gestión de claves",
+    "description": "Infraestructura de clave pública táctica y gestión del material criptográfico.",
+    "cost": 0.35,
+    "deployment_time": 1.5,
+    "cia_mitigation": {
+      "confidentiality": 0.8,
+      "integrity": 0.7
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1557",
+      "T1040"
+    ]
+  },
+  {
+    "id": "CM_038",
+    "name": "Bloqueo de puertos físicos y medios extraíbles",
+    "description": "Bloqueo de los puertos físicos y de los medios extraíbles.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "confidentiality": 0.6,
+      "integrity": 0.6
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1091",
+      "T1200"
+    ]
+  },
+  {
+    "id": "CM_039",
+    "name": "Arranque seguro y verificación de firmware",
+    "description": "Arranque seguro y verificación de la integridad del firmware.",
+    "cost": 0.3,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "integrity": 0.8
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1542",
+      "T1495"
+    ]
+  },
+  {
+    "id": "CM_040",
+    "name": "Plan de comunicaciones alternativas (PACE)",
+    "description": "Plan de comunicaciones alternativas y continuidad del enlace.",
+    "cost": 0.2,
+    "deployment_time": 1.0,
+    "cia_mitigation": {
+      "availability": 0.7
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Deployment"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_041",
+    "name": "Salto de frecuencia y formas de onda resistentes",
+    "description": "Salto de frecuencia y formas de onda resistentes a la interferencia.",
+    "cost": 0.3,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "availability": 0.7
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_042",
+    "name": "Detección de interferencias y localización de emisores",
+    "description": "Detección de interferencias y localización de los emisores hostiles.",
+    "cost": 0.25,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "availability": 0.5,
+      "confidentiality": 0.4
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1040"
+    ]
+  },
+  {
+    "id": "CM_043",
+    "name": "Autenticación de mensajes y antirreinyección",
+    "description": "Autenticación de los mensajes y protección antirreinyección en los enlaces.",
+    "cost": 0.25,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "integrity": 0.8
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1557"
+    ]
+  },
+  {
+    "id": "CM_046",
+    "name": "Verificación de integridad de configuración",
+    "description": "Verificación de la integridad de la configuración.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "integrity": 0.8
+    },
+    "applicable_to": [
+      "Asset_ECC",
+      "Asset_VAMTAC",
+      "Asset_EO"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1495"
+    ]
+  },
+  {
+    "id": "CM_049",
+    "name": "Monitor de integridad de la señal GNSS (RAIM)",
+    "description": "Monitor de integridad de la señal de navegación por satélite.",
+    "cost": 0.35,
+    "deployment_time": 0.75,
+    "cia_mitigation": {
+      "integrity": 0.8,
+      "availability": 0.6
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_050",
+    "name": "Detección y conmutación ante interferencia GNSS",
+    "description": "Detección y conmutación ante la interferencia de la señal GNSS.",
+    "cost": 0.3,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "availability": 0.7
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Execution"
+    ],
+    "counters_attack_techniques": [
+      "T1498",
+      "T1499"
+    ]
+  },
+  {
+    "id": "CM_051",
+    "name": "Descarga y análisis de integridad de registros de vuelo",
+    "description": "Descarga y análisis de la integridad de los registros de vuelo.",
+    "cost": 0.15,
+    "deployment_time": 0.5,
+    "cia_mitigation": {
+      "integrity": 0.7
+    },
+    "applicable_to": [
+      "Asset_HT27",
+      "Asset_C295"
+    ],
+    "applicable_in_phases": [
+      "Termination_and_transition"
+    ],
+    "counters_attack_techniques": [
+      "T1565",
+      "T1070"
+    ]
+  }
+]

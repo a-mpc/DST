@@ -1,0 +1,18 @@
+{
+  "name": "Filtración del plan de evacuación",
+  "description": "Brecha de confidencialidad por filtración del plan de evacuación.",
+  "phase": "Execution",
+  "events": [
+    {
+      "id": "EV-NEO-001",
+      "description": "Sustracción y exfiltración del registro biométrico y los datos de los evacuados.",
+      "targets_asset": "Asset_SistemaGestionEvac",
+      "cia_degradation": { "confidentiality": 0.9 },
+      "attack_techniques": [
+        { "id": "T1213" },
+        { "id": "T1041" }
+      ],
+      "timestamp": "2026-06-21T13:00:00Z"
+    }
+  ]
+}
