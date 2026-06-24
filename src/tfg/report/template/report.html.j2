@@ -1,0 +1,403 @@
+{% set ns = namespace(figura=0, tabla=0) %}
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Informe de evaluación de la misión — {{ mission.name }}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 2.2cm 2cm 2.5cm 2cm;
+      @top-left { content: "Informe de evaluación de la misión"; font-size: 9pt; color: #666; }
+      @top-right { content: "{{ mission.name }}"; font-size: 9pt; color: #666; }
+      @bottom-right { content: "Página " counter(page) " de " counter(pages); font-size: 9pt; color: #666; }
+      @bottom-left { content: "{{ report.generated_at }}"; font-size: 9pt; color: #666; }
+    }
+    @page:first {
+      margin-top: 3cm;
+      @top-left { content: none; }
+      @top-right { content: none; }
+      @bottom-left { content: none; }
+      @bottom-right { content: none; }
+    }
+
+    body {
+      font-family: serif;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      color: #222;
+    }
+    h1, h2, h3, h4 {
+      color: #1a3a5c;
+      font-weight: 600;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 22pt; margin: 0 0 0.2em 0; }
+    h2 {
+      font-size: 15pt;
+      margin-top: 1.8em;
+      border-bottom: 2px solid #1a3a5c;
+      padding-bottom: 0.2em;
+    }
+    h3 { font-size: 12pt; margin-top: 1.2em; }
+    h4 { font-size: 10.5pt; margin-top: 1em; color: #444; }
+    p { margin: 0.4em 0 0.8em 0; text-align: justify; }
+
+    .cover {
+      page-break-after: always;
+      text-align: center;
+      padding-top: 4.5cm;
+    }
+    .cover .subtitle {
+      font-size: 13pt;
+      color: #555;
+      margin-top: 0.5em;
+    }
+    .cover .mission-name {
+      font-size: 18pt;
+      color: #1a3a5c;
+      margin-top: 3cm;
+      font-weight: 600;
+    }
+    .cover .meta {
+      margin-top: 5cm;
+      font-size: 10pt;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .summary-box {
+      border-left: 4px solid #1a3a5c;
+      background: #f5f7fa;
+      padding: 0.8em 1.2em;
+      margin: 1em 0;
+    }
+    .kpis {
+      display: flex;
+      gap: 0.8em;
+      margin: 1em 0;
+      flex-wrap: wrap;
+    }
+    .kpi {
+      flex: 1;
+      min-width: 120px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.8em;
+      text-align: center;
+    }
+    .kpi .label {
+      font-size: 9pt;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+    .kpi .value {
+      font-size: 20pt;
+      font-weight: 600;
+      margin: 0.15em 0 0.2em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8em 0;
+      font-size: 9.5pt;
+    }
+    th, td {
+      padding: 0.5em 0.7em;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    th {
+      background: #1a3a5c;
+      color: white;
+      font-weight: 600;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:nth-child(even) td { background: #fafbfc; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .degradation-bar {
+      display: inline-block;
+      width: 60px;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-right: 0.4em;
+      overflow: hidden;
+    }
+    .degradation-bar > span {
+      display: block;
+      height: 100%;
+      background: #b02a1f;
+    }
+
+    .figure {
+      margin: 1em 0;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .figure img, .figure svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .caption {
+      font-size: 9pt;
+      color: #666;
+      margin: 0.4em 0;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .summary {
+      font-size: 9.5pt;
+      color: #444;
+      background: #f5f7fa;
+      padding: 0.5em 0.8em;
+      border-left: 3px solid #7a9ac4;
+      margin: 0.4em 0;
+    }
+
+    .section { page-break-inside: avoid; }
+    .small { font-size: 8pt; color: #666; }
+    .mono { font-family: 'Consolas' }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <h1>Informe de evaluación de la misión</h1>
+    <div class="subtitle">Análisis de impacto y recomendación de contramedidas</div>
+    <div class="mission-name">{{ mission.name }}</div>
+    <div class="meta">
+      Evento: <strong>{{ event.id }}</strong><br>
+      Fecha: {{ report.generated_at }}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>1. Resumen</h2>
+    <div class="summary-box">
+      <p>
+        La misión presenta un estado <strong>{% if not evaluation.is_viable %}NO {% endif %}VIABLE</strong>
+        , con una viabilidad del <strong>{{ "%.0f"|format(evaluation.mission_viability * 100) }}%</strong>.
+        El impacto para la misión se sitúa en un <strong>{{ "%.0f"|format(evaluation.mission_impact * 100) }}%</strong> y
+        el impacto para la fuerza en un <strong>{{ "%.0f"|format(evaluation.force_impact * 100) }}%</strong>.
+      </p>
+      {% if recommendations | length > 0 %}
+      <p>
+        Se recomienda priorizar
+        <strong>{{ recommendations[0].countermeasure.name }}</strong> como contramedida principal, dado que mejora la
+        viabilidad en un <strong>{{ "%.0f"|format(recommendations[0].viability_gain * 100) }}%</strong> y reduce el
+        impacto para la misión en un <strong>{{ "%.0f"|format(recommendations[0].impact_reduction * 100) }}%</strong> con
+        un coste de <strong>{{ "%.2f"|format(recommendations[0].countermeasure.cost) }}</strong>.
+      </p>
+      {% else %}
+      <p>No existe ninguna contramedida aplicable en este escenario.</p>
+      {% endif %}
+    </div>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="label">Viabilidad de la misión</div>
+        <div class="value">{{ "%.0f"|format(evaluation.mission_viability * 100) }}%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Impacto para la misión</div>
+        <div class="value">{{ "%.0f"|format(evaluation.mission_impact * 100) }}%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Impacto para la fuerza</div>
+        <div class="value">{{ "%.0f"|format(evaluation.force_impact * 100) }}%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Contramedidas recomendadas</div>
+        <div class="value">{{ recommendations | length }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>2. Descripción del evento</h2>
+    <div style="margin-top: 1em;">
+      <table>
+        {% if event.description %}<tr><th>Descripción</th><td>{{ event.description }}</td></tr>{% endif %}
+        <tr><th style="width: 30%">Activo objetivo</th><td>{{ event.target_asset_name }} <span class="small mono">({{ event.targets_asset }})</span></td></tr>
+        <tr><th>Degradación Confidencialidad</th><td>{{ "%.2f"|format(event.cia_degradation.confidentiality) }}</td></tr>
+        <tr><th>Degradación Integridad</th><td>{{ "%.2f"|format(event.cia_degradation.integrity) }}</td></tr>
+        <tr><th>Degradación Disponibilidad</th><td>{{ "%.2f"|format(event.cia_degradation.availability) }}</td></tr>
+        <tr><th>Marca temporal</th><td>{{ event.timestamp }}</td></tr>
+      </table>
+      {% set ns.tabla = ns.tabla + 1 %}
+      <div class="caption">Tabla {{ ns.tabla }}. Información del evento {{ event.id }}.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>3. Propagación de la degradación en la misión</h2>
+    <p>
+      La siguiente tabla muestra la degradación propagada desde el activo afectado hasta los niveles superiores de la misión.
+      Los valores están normalizados en el rango [0, 1].
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Entidad</th>
+          <th>Degradación</th>
+          <th class="num">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for node in evaluation.node_degradations_ordered %}
+        <tr>
+          <td>{{ node.type }}</td>
+          <td>
+            {{ node.name }}
+            <span class="small mono">({{ node.node_id }})</span>
+          </td>
+          <td>
+            <span class="degradation-bar">
+              <span style="width: {{ (node.degradation * 100) | round }}%;"></span>
+            </span>
+          </td>
+          <td class="num">{{ "%.2f"|format(node.degradation) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% set ns.tabla = ns.tabla + 1 %}
+    <div class="caption">Tabla {{ ns.tabla }}. Propagación de la degradación en la misión.</div>
+    {% if figures.degradation_graph %}
+    <p style="margin-top: 2em">
+      La siguiente figura muestra la estructura de la misión evaluada. Los eventos se representan como nodos de color rojo y los activos afectados
+      con azul oscuro. Las relaciones de dependencia entre tareas se representan con flechas de color azul claro.
+    </p>
+    <div class="figure">
+      {{ figures.degradation_graph | safe }}
+      {% set ns.figura = ns.figura + 1 %}
+      <div class="caption">Figura {{ ns.figura }}. Estructura de la misión.</div>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="section">
+    <h2>4. Contramedidas recomendadas</h2>
+    {% if recommendations | length > 0 %}
+    <p>
+      Recomendación obtenida mediante TOPSIS sobre los siguientes cinco criterios: coste, tiempo de despliegue, mejora de la viabilidad de la misión,
+      reducción del impacto para la misión y reducción del impacto para la fuerza; con los pesos determinados en el punto 5 del presente documento.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 3%">#</th>
+          <th>Contramedida</th>
+          <th class="num">Punt.</th>
+          <th class="num">Coste</th>
+          <th class="num" style="width: 9%">Δ Viab.</th>
+          <th class="num" style="width: 13%">Δ I. misión</th>
+          <th class="num" style="width: 14%">Δ I. fuerza</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in recommendations %}
+        <tr>
+          <td class="num">{{ loop.index }}</td>
+          <td>
+            <strong>{{ r.countermeasure.name }}</strong>
+            <span class="small mono">({{ r.countermeasure.id }})</span>
+          </td>
+          <td class="num">{{ "%.2f"|format(r.score * 10) }}</td>
+          <td class="num">{{ "%.2f"|format(r.countermeasure.cost) }}</td>
+          <td class="num">+ {{ "%.2f"|format(r.viability_gain) }}</td>
+          <td class="num">– {{ "%.2f"|format(r.impact_reduction) }}</td>
+          <td class="num">– {{ "%.2f"|format(r.force_impact_reduction) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% set ns.tabla = ns.tabla + 1 %}
+    <div class="caption">Tabla {{ ns.tabla }}. Contramedidas recomendadas.</div>
+
+    <h3>Descripción de contramedidas</h3>
+    {% for r in recommendations %}
+    <div class="section">
+      <h4>{{ loop.index }}. {{ r.countermeasure.name }}</h4>
+      <div class="summary">
+        Aplicar la contramedida <i>{{ r.countermeasure.name }}</i> incrementa la viabilidad de la misión en un
+        {{ "%.0f"|format(r.viability_gain * 100) }}%, reduciendo el impacto para la misión en un {{ "%.0f"|format(r.impact_reduction * 100) }}%
+        y para la fuerza en un {{ "%.0f"|format(r.force_impact_reduction * 100) }}%. Coste {{ "%.2f"|format(r.countermeasure.cost) }}.
+        Tiempo de despliegue: {{ "%.0f"|format(r.countermeasure.deployment_time * 60) }} min. Puntuación TOPSIS: {{ "%.2f"|format(r.score * 10) }}.
+      </div>
+      <table>
+        <tr>
+          <th style="width: 30%">Descripción</th>
+          <td>{{ r.countermeasure.description }}</td>
+        </tr>
+        <tr>
+          <th>Viabilidad tras aplicar</th>
+          <td>{{ "%.0f"|format(r.projected_viability * 100) }}%</td>
+        </tr>
+        <tr>
+          <th>Impacto para la misión tras aplicar</th>
+          <td>{{ "%.0f"|format(r.projected_impact * 100) }}%</td>
+        </tr>
+        {% if r.projected_force_impact is defined %}
+        <tr>
+          <th>Impacto para la fuerza tras aplicar</th>
+          <td>{{ "%.0f"|format(r.projected_force_impact * 100) }}%</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <th>Aplicable a</th>
+          <td class="mono small">{{ r.countermeasure.applicable_to | join(", ") }}</td>
+        </tr>
+        {% if r.countermeasure.phase %}
+        <tr>
+          <th>Fase de misión</th>
+          <td>{{ r.countermeasure.phase }}</td>
+        </tr>
+        {% endif %}
+      </table>
+      {% set ns.tabla = ns.tabla + 1 %}
+      <div class="caption">Tabla {{ ns.tabla }}. Información de la contramedida {{ r.countermeasure.id }}.</div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>En las condiciones actuales, ninguna contramedida del catálogo es aplicable.</p>
+    {% endif %}
+  </section>
+
+  <section class="section">
+    <h2>5. Parámetros y configuración</h2>
+
+    <table>
+      <tr><th style="width: 33%">Umbral de viabilidad</th><td>{{ "%.0f"|format(config.viability_threshold * 100) }}%</td></tr>
+      <tr>
+        <th>Pesos TOPSIS</th>
+        <td>
+            Coste: {{ "%.2f"|format(config.topsis_weights.cost) }};
+            Tiempo de despliegue: {{ "%.2f"|format(config.topsis_weights.deployment_time) }};
+            Δ Viabilidad: {{ "%.2f"|format(config.topsis_weights.viability_gain) }};
+            Δ impacto misión: {{ "%.2f"|format(config.topsis_weights.mission_impact_reduction) }};
+            Δ impacto fuerza: {{ "%.2f"|format(config.topsis_weights.force_impact_reduction) }}
+        </td>
+      </tr>
+      <tr><th>Ontología</th><td class="mono small">/{{ config.ontology_path }}</td></tr>
+      <tr><th>Escenario</th><td class="mono small">/{{ config.scenario_path }}</td></tr>
+      <tr><th>Catálogo de contramedidas</th><td class="mono small">/{{ config.catalog_path }}</td></tr>
+    </table>
+    {% set ns.tabla = ns.tabla + 1 %}
+    <div class="caption">Tabla {{ ns.tabla }}. Configuración del escenario.</div>
+
+    <p style="margin-top: 3em; font-size: 9pt">
+      Este informe ha sido generado automáticamente. Los resultados dependen de los pesos y umbrales definidos en la configuración
+      y del catálogo de contramedidas utilizado. Las recomendaciones deben ser validadas antes de su aplicación real.
+    </p>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "ontology_path": "data/ontology/mission.owx",
+  "scenarios_root": "data/scenarios",
+  "output_dir": "output",
+  "viability_threshold": 0.5,
+  "top_k": 6,
+  "topsis_weights": {
+    "cost": 0.1,
+    "deployment_time": 0.1,
+    "viability_gain": 0.35,
+    "mission_impact_reduction": 0.25,
+    "force_impact_reduction": 0.2
+  },
+  "tool_version": "1.0"
+}

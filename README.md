@@ -36,7 +36,7 @@ source venv/bin/activate        # Linux / macOS
 venv\Scripts\activate.bat       # Windows
 ```
 
-La herramienta incluye un documento `pyproject.toml`, un fichero de configuración del empaquetado. Contiene metadatos del proyecto, sus dependencias y la configuración de ciertas herramientas.
+La herramienta incluye un documento `pyproject.toml`, un fichero de configuración del empaquetado. Contiene metadatos del proyecto, sus dependencias y la configuración de ciertas herramientas, por lo que para instalar las bibliotecas requeridas por la DST bastará con ejecutar el comando:
 
 ```
 pip install -e .
@@ -97,9 +97,15 @@ python -m tfg.main <nombre-del-escenario>
 
 El `<nombre-del-escenario>` deberá ser el del directorio que contenga la información del escenario a evaluar, situado dentro de `/data` según se ha indicado en el apartado de estructura.
 
+Por ejemplo, para ejecutar el primer caso de uso propuesto, habría que escribir en línea de comandos:
+
+```
+python -m tfg.main scenario_01
+```
+
 Una vez finalice la ejecución de la DST, se almacenarán los informes en `/output/<nombre-del-escenario>`.
 
-Cabe resaltar que las rutas de los directorios [son relativas con respecto a la carpeta raíz del proyecto].
+Cabe resaltar que las rutas de los directorios son relativas con respecto a la carpeta raíz de la DST.
 
 ### Alejo Martínez de Pisón Campo
 

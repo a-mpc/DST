@@ -1,0 +1,22 @@
+{
+  "name": "DoS sobre enlace SATCOM y suplantación de contactos",
+  "phase": "execution",
+  "events": [
+    {
+      "id": "EV-TRIDENTE-001",
+      "description": "DoS contra el enlace SATCOM en banda X.",
+      "targets_asset": "Asset_SatcomX",
+      "cia_degradation": { "availability": 0.95 },
+      "attack_techniques": [{ "id": "T1498" }],
+      "timestamp": "2026-06-20T09:15:00Z"
+    },
+    {
+      "id": "EV-TRIDENTE-002",
+      "description": "Inyección de contactos AIS falsos en el sistema de combate Aegis.",
+      "targets_asset": "Asset_ACS",
+      "cia_degradation": { "integrity": 0.9, "availability": 0.2 },
+      "attack_techniques": [{ "id": "T1565" }, { "id": "T1557" }],
+      "timestamp": "2026-06-20T11:40:00Z"
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "mission": [
+    {
+      "id": "Mission_Tridente",
+      "name": "Operación Tridente",
+      "weight": 1.0,
+      "criticality": 0.9,
+      "start_date": "2026-06-01T00:00:00Z",
+      "end_date": "2026-07-31T00:00:00Z",
+      "phase": "Execution"
+    }
+  ],
+  "loo": [
+    {
+      "id": "LoO_ControlMaritimo",
+      "parent_id": "Mission_Tridente",
+      "name": "Control del espacio marítimo",
+      "weight": 0.5,
+      "criticality": 0.9,
+      "domain": "Maritime"
+    },
+    {
+      "id": "LoO_C2",
+      "parent_id": "Mission_Tridente",
+      "name": "Mando y control",
+      "weight": 0.5,
+      "criticality": 0.9,
+      "domain": "Cyberspace"
+    }
+  ],
+  "obj": [
+    {
+      "id": "Obj_SeguridadSLOC",
+      "parent_id": "LoO_ControlMaritimo",
+      "name": "Protección del convoy por la SLOC",
+      "weight": 1.0,
+      "criticality": 0.2
+    },
+    {
+      "id": "Obj_C2Continuo",
+      "parent_id": "LoO_C2",
+      "name": "C2 contínuo",
+      "weight": 1.0,
+      "criticality": 0.2
+    }
+  ],
+  "dc": [
+    {
+      "id": "DC_RMP",
+      "parent_id": "Obj_SeguridadSLOC",
+      "name": "RMP disponible",
+      "weight": 1.0,
+      "criticality": 0.2
+    },
+    {
+      "id": "DC_EnlacesDisponibles",
+      "parent_id": "Obj_C2Continuo",
+      "name": "Disponibilidad de enlaces y servicios C2",
+      "weight": 1.0,
+      "criticality": 0.2
+    }
+  ],
+  "effect": [
+    {
+      "id": "Eff_ConcienciaSituacional",
+      "parent_id": "DC_RMP",
+      "name": "Contactos detectados y clasificados",
+      "weight": 1.0,
+      "criticality": 0.3
+    },
+    {
+      "id": "Eff_DifusionRMP",
+      "parent_id": "DC_EnlacesDisponibles",
+      "name": "RMP difundida",
+      "weight": 1.0,
+      "criticality": 0.3
+    }
+  ],
+  "action": [
+    {
+      "id": "Action_VigilanciaMaritima",
+      "parent_id": "Eff_ConcienciaSituacional",
+      "name": "Ejecutar vigilancia marítima",
+      "weight": 1.0,
+      "criticality": 0.3,
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z",
+      "domain": "Maritime"
+    },
+    {
+      "id": "Action_OperacionRedes",
+      "parent_id": "Eff_DifusionRMP",
+      "name": "Operar redes y enlaces C2",
+      "weight": 1.0,
+      "criticality": 0.3,
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z",
+      "domain": "Cyberspace"
+    }
+  ],
+  "task": [
+    {
+      "id": "Task_DeteccionAerea",
+      "parent_id": "Action_VigilanciaMaritima",
+      "name": "Detectar y clasificar contactos",
+      "weight": 0.5,
+      "criticality": 0.4,
+      "phase": "execution",
+      "depends_on": [],
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z"
+    },
+    {
+      "id": "Task_DefensaCiber",
+      "parent_id": "Action_OperacionRedes",
+      "name": "Defender y monitorizar las redes C2",
+      "weight": 0.4,
+      "criticality": 0.4,
+      "phase": "execution",
+      "depends_on": [],
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z"
+    },
+    {
+      "id": "Task_DifusionDatos",
+      "parent_id": "Action_OperacionRedes",
+      "name": "Difundir RMP",
+      "weight": 0.3,
+      "criticality": 0.5,
+      "phase": "execution",
+      "depends_on": [
+        "Task_FusionDatos"
+      ],
+      "critical": "True",
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z"
+    },
+    {
+      "id": "Task_FusionDatos",
+      "parent_id": "Action_OperacionRedes",
+      "name": "Fusionar datos y generar RMP",
+      "weight": 0.3,
+      "criticality": 0.5,
+      "phase": "execution",
+      "depends_on": [
+        "Task_DeteccionAerea",
+        "Task_DefensaCiber"
+      ],
+      "critical": "True",
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z"
+    },
+    {
+      "id": "Task_EscoltaNaval",
+      "parent_id": "Action_VigilanciaMaritima",
+      "name": "Escoltar el convoy",
+      "weight": 0.5,
+      "criticality": 0.5,
+      "phase": "execution",
+      "depends_on": [
+        "Task_DifusionDatos"
+      ],
+      "critical": "True",
+      "start_date": "2026-06-21T00:00:00Z",
+      "end_date": "2026-06-26T22:00:00Z"
+    }
+  ],
+  "unit": [
+    {
+      "id": "Unit_9Escuadrilla",
+      "parent_id": "Task_DeteccionAerea",
+      "name": "9ª Escuadrilla de Aeronaves",
+      "weight": 0.35,
+      "criticality": 0.4,
+      "domain": "Air"
+    },
+    {
+      "id": "Unit_11Escuadrilla",
+      "parent_id": "Task_DeteccionAerea",
+      "name": "11ª Escuadrilla de Aeronaves",
+      "weight": 0.35,
+      "criticality": 0.4,
+      "domain": "Air"
+    },
+    {
+      "id": "Unit_14Escuadrilla",
+      "parent_id": "Task_DeteccionAerea",
+      "name": "14ª Escuadrilla de Aeronaves",
+      "weight": 0.3,
+      "criticality": 0.4,
+      "domain": "Air"
+    },
+    {
+      "id": "Unit_CECOMMAD",
+      "parent_id": "Task_DifusionDatos",
+      "name": "CECOMMAD",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Unit_COVAM",
+      "parent_id": "Task_FusionDatos",
+      "name": "COVAM",
+      "weight": 1,
+      "criticality": 0.4,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Unit_COS_AR",
+      "parent_id": "Task_DefensaCiber",
+      "name": "COS-AR",
+      "weight": 1.0,
+      "criticality": 0.4,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Unit_31Escuadrilla",
+      "parent_id": "Task_EscoltaNaval",
+      "name": "31ª Escuadrilla de Superficie",
+      "weight": 0.7,
+      "criticality": 0.4,
+      "domain": "Maritime"
+    },
+    {
+      "id": "Unit_Convoy",
+      "parent_id": "Task_EscoltaNaval",
+      "name": "Unidad logística",
+      "weight": 0.3,
+      "criticality": 0.3,
+      "domain": "Maritime"
+    }
+  ],
+  "asset": [
+    {
+      "id": "Asset_AV8B",
+      "parent_id": "Unit_9Escuadrilla",
+      "name": "Avión AV-8B Harrier II",
+      "weight": 0.6,
+      "criticality": 0.6,
+      "domain": "Air"
+    },
+    {
+      "id": "Asset_UAV_ScanEagle",
+      "parent_id": "Unit_11Escuadrilla",
+      "name": "UAV ScanEagle",
+      "weight": 0.4,
+      "criticality": 0.5,
+      "domain": "Air"
+    },
+    {
+      "id": "Asset_NH90",
+      "parent_id": "Unit_14Escuadrilla",
+      "name": "Helicóptero NH-90",
+      "weight": 1.0,
+      "criticality": 0.5,
+      "domain": "Air"
+    },
+    {
+      "id": "Asset_SatcomX",
+      "parent_id": "Unit_CECOMMAD",
+      "name": "Enlace SATCOM banda X",
+      "weight": 0.6,
+      "criticality": 0.7,
+      "domain": "Space"
+    },
+    {
+      "id": "Asset_DataLink16",
+      "parent_id": "Unit_CECOMMAD",
+      "name": "Enlace Link-16",
+      "weight": 0.4,
+      "criticality": 0.6,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_ServCOVAM",
+      "parent_id": "Unit_COVAM",
+      "name": "Servidor",
+      "weight": 1,
+      "criticality": 0.7,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_RedC2_COC",
+      "parent_id": "Unit_COS_AR",
+      "name": "Red de C2",
+      "weight": 0.6,
+      "criticality": 0.7,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_GPS_PNT",
+      "parent_id": "Unit_COS_AR",
+      "name": "GPS/PNT",
+      "weight": 0.4,
+      "criticality": 0.6,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_F101",
+      "parent_id": "Unit_31Escuadrilla",
+      "name": "Fragata F-101",
+      "weight": 0.4,
+      "criticality": 0.9,
+      "domain": "Maritime"
+    },
+    {
+      "id": "Asset_ACS",
+      "parent_id": "Unit_31Escuadrilla",
+      "name": "ACS",
+      "weight": 0.4,
+      "criticality": 0.9,
+      "domain": "Cyberspace"
+    },
+    {
+      "id": "Asset_Radar",
+      "parent_id": "Unit_31Escuadrilla",
+      "name": "Radar de vigilancia",
+      "weight": 0.2,
+      "criticality": 0.6,
+      "domain": "Maritime"
+    },
+    {
+      "id": "Asset_A14",
+      "parent_id": "Unit_Convoy",
+      "name": "BAC A-14",
+      "weight": 1.0,
+      "criticality": 1.0,
+      "domain": "Maritime"
+    }
+  ]
+}
