@@ -105,6 +105,12 @@ python -m tfg.main scenario_01
 
 Una vez finalice la ejecución de la DST, se almacenarán los informes en `/output/<nombre-del-escenario>`.
 
+Se puede modificar la configuración de la herramienta mediante un archivo JSON con la estructura de `config.json` en la raíz del proyecto. Para cargar dicha configuración, se debe ejecutar:
+
+```
+python -m tfg.main scenario_01 --config <ruta-fichero-configuración>.json
+```
+
 Cabe resaltar que las rutas de los directorios son relativas con respecto a la carpeta raíz de la DST.
 
 ### Alejo Martínez de Pisón Campo
